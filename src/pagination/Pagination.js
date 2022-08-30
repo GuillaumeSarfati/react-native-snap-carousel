@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
-import { I18nManager, Platform, View, ViewPropTypes } from 'react-native';
+import { I18nManager, Platform, View } from 'react-native';
+import { ViewPropTypes } from 'deprecated-react-native-prop-types';
 import PropTypes from 'prop-types';
 import PaginationDot from './PaginationDot';
 import styles from './Pagination.style';
@@ -31,7 +32,7 @@ export default class Pagination extends PureComponent {
         animatedDuration: PropTypes.number,
         animatedFriction: PropTypes.number,
         animatedTension: PropTypes.number,
-        delayPressInDot: PropTypes.number,
+        delayPressInDot: PropTypes.number
     };
 
     static defaultProps = {
@@ -42,10 +43,10 @@ export default class Pagination extends PureComponent {
         animatedDuration: 250,
         animatedFriction: 4,
         animatedTension: 50,
-        delayPressInDot: 0,
+        delayPressInDot: 0
     }
 
-    constructor (props) {
+    constructor(props) {
         super(props);
 
         // Warnings
@@ -69,17 +70,17 @@ export default class Pagination extends PureComponent {
         }
     }
 
-    _needsRTLAdaptations () {
+    _needsRTLAdaptations() {
         const { vertical } = this.props;
         return IS_RTL && !IS_IOS && !vertical;
     }
 
-    get _activeDotIndex () {
+    get _activeDotIndex() {
         const { activeDotIndex, dotsLength } = this.props;
         return this._needsRTLAdaptations() ? dotsLength - activeDotIndex - 1 : activeDotIndex;
     }
 
-    get dots () {
+    get dots() {
         const {
             activeOpacity,
             carouselRef,
@@ -98,7 +99,7 @@ export default class Pagination extends PureComponent {
             animatedDuration,
             animatedFriction,
             animatedTension,
-            delayPressInDot,
+            delayPressInDot
         } = this.props;
 
         if (renderDots) {
@@ -106,20 +107,20 @@ export default class Pagination extends PureComponent {
         }
 
         const DefaultDot = <PaginationDot
-          carouselRef={carouselRef}
-          tappable={tappableDots && typeof carouselRef !== 'undefined'}
-          activeOpacity={activeOpacity}
-          color={dotColor}
-          containerStyle={dotContainerStyle}
-          style={dotStyle}
-          inactiveColor={inactiveDotColor}
-          inactiveOpacity={inactiveDotOpacity}
-          inactiveScale={inactiveDotScale}
-          inactiveStyle={inactiveDotStyle}
-          animatedDuration={animatedDuration}
-          animatedFriction={animatedFriction}
-          animatedTension={animatedTension}
-          delayPressInDot={delayPressInDot}
+            carouselRef={carouselRef}
+            tappable={tappableDots && typeof carouselRef !== 'undefined'}
+            activeOpacity={activeOpacity}
+            color={dotColor}
+            containerStyle={dotContainerStyle}
+            style={dotStyle}
+            inactiveColor={inactiveDotColor}
+            inactiveOpacity={inactiveDotOpacity}
+            inactiveScale={inactiveDotScale}
+            inactiveStyle={inactiveDotStyle}
+            animatedDuration={animatedDuration}
+            animatedFriction={animatedFriction}
+            animatedTension={animatedTension}
+            delayPressInDot={delayPressInDot}
         />;
 
         const dots = [...Array(dotsLength).keys()].map(i => {
@@ -137,7 +138,7 @@ export default class Pagination extends PureComponent {
         return dots;
     }
 
-    render () {
+    render() {
         const { dotsLength, containerStyle, vertical, accessibilityLabel } = this.props;
 
         if (!dotsLength || dotsLength < 2) {
@@ -146,21 +147,22 @@ export default class Pagination extends PureComponent {
 
         const style = [
             styles.sliderPagination,
-            { flexDirection: vertical ?
-                'column' :
-                (this._needsRTLAdaptations() ? 'row-reverse' : 'row')
+            {
+                flexDirection: vertical ?
+                    'column' :
+                    (this._needsRTLAdaptations() ? 'row-reverse' : 'row')
             },
             containerStyle || {}
         ];
 
         return (
             <View
-              pointerEvents={'box-none'}
-              style={style}
-              accessible={!!accessibilityLabel}
-              accessibilityLabel={accessibilityLabel}
+                pointerEvents={'box-none'}
+                style={style}
+                accessible={!!accessibilityLabel}
+                accessibilityLabel={accessibilityLabel}
             >
-                { this.dots }
+                {this.dots}
             </View>
         );
     }
